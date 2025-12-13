@@ -236,30 +236,6 @@
 **你能得到**
 - 成体系的提示词工具链：`prompts/system_prompts/` 约束 AI 行为边界，`prompts/coding_prompts/` 提供需求澄清、计划、执行的全链路脚本。
 - 闭环交付路径：需求 → 上下文文档 → 实施计划 → 分步实现 → 自测 → 进度记录，全程可复盘、可移交。
-- 共享记忆库：在 `memory-bank/`（或你的等价目录）同步 `project-context.md`、`progress.md` 等，让人类与 AI 共用同一真相源。
-
-**3 分钟 CLI 演示（在 Codex CLI / Claude Code 中按顺序执行即可）**
-1) 复制你的需求，加载 `prompts/coding_prompts/(1,1)_#_📘_项目上下文文档生成_·_工程化_Prompt（专业优化版）.md` 生成 `project-context.md`。
-2) 加载 `prompts/coding_prompts/(3,1)_#_流程标准化.md`，得到可执行的实施计划与每步验收方式。
-3) 使用 `prompts/coding_prompts/(5,1)_{content#_🚀_智能需求理解与研发导航引擎（Meta_R&D_Navigator_·.md` 驱动 AI 按计划写代码；每完成一项就更新 `progress.md` 并运行计划中的测试或 `make test`。
-
-**录屏要点（便于替换成 GIF）**
-- 画面 1：粘贴需求 → 自动生成上下文文档。
-- 画面 2：生成实施计划，勾选 3–5 个任务。
-- 画面 3：AI 写出首个模块并跑通测试结果。
-- 建议将录屏保存为 `documents/assets/vibe-coding-demo.gif`，再替换下方链接。
-
-<p align="center">
-  <img src="./documents/assets/vibe-coding-demo.gif" alt="Vibe Coding 三步演示" width="80%">
-</p>
-
-**演示剧本（文字版，可直接喂给 AI 使用）**
-- 需求示例：帮我用 FastAPI 写一个带 Redis 缓存的天气查询服务（含 Dockerfile 和基础测试）。
-- 提醒 AI：按上述 1→2→3 的 prompt 顺序执行；每一步必须给出验收指令；禁止生成单文件巨石。
-- 验收标准：接口返回示例、`docker build` 与 `pytest` 全部通过；README 需补充使用说明与架构摘要。
-
-> 想快速试水，把自己的需求原样贴给 AI，按 1-2-3 的 prompt 串起来，就能得到可落地、可验证、可维护的交付流程。
-
 ---
 
 ## ⚙️ 架构与工作流程
