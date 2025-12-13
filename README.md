@@ -200,22 +200,20 @@ backups/
 
 ```mermaid
 graph TB
-  classDef dataFlow stroke:#1565c0,stroke-width:2px;
-  classDef control stroke-dasharray: 3 3,stroke:#8e24aa,stroke-width:1.6px;
-  classDef async stroke-dasharray: 2 4,stroke:#2e7d32,stroke-width:1.6px;
+  %% GitHub 兼容简化版（仅使用基础语法）
 
   subgraph ext_layer[外部系统与数据源层]
     ext_contrib[社区贡献者]
-    ext_sheet[Google表格 / 外部表格数据]
+    ext_sheet[Google 表格 / 外部表格]
     ext_md[外部 Markdown 提示词]
-    ext_api[未来可扩展数据源 / API]
+    ext_api[预留：其他数据源 / API]
     ext_contrib --> ext_sheet
     ext_contrib --> ext_md
-    ext_api -.-> ext_sheet
+    ext_api --> ext_sheet
   end
 
   subgraph ingest_layer[数据接入与采集层]
-    excel_raw[prompt_excel/*.xlsx 原始表]
+    excel_raw[prompt_excel/*.xlsx]
     md_raw[prompt_docs/外部MD输入]
     excel_to_docs[prompts-library/scripts/excel_to_docs.py]
     docs_to_excel[prompts-library/scripts/docs_to_excel.py]
@@ -229,49 +227,37 @@ graph TB
   end
 
   subgraph core_layer[数据处理与智能决策层 / 核心]
-    validate[字段校验与规范化] --> transform[格式映射转换引擎]
-    transform --> artifacts_md[生成 prompt_docs/规范MD]
-    transform --> artifacts_xlsx[生成 prompt_excel/导出XLSX]
-    orchestrator[main.py · scripts/start_convert.py 调度] -.-> validate
-    orchestrator -.-> transform
-    ingest_bus --> validate
+    ingest_bus --> validate[字段校验与规范化]
+    validate --> transform[格式映射转换]
+    transform --> artifacts_md[prompt_docs/规范MD]
+    transform --> artifacts_xlsx[prompt_excel/导出XLSX]
+    orchestrator[main.py · scripts/start_convert.py] --> validate
+    orchestrator --> transform
   end
 
   subgraph consume_layer[执行与消费层]
-    artifacts_md --> catalog_coding[prompts/coding_prompts 编程链路提示词]
-    artifacts_md --> catalog_system[prompts/system_prompts 行为约束提示词]
-    artifacts_md --> catalog_assist[prompts/assistant_prompts 辅助提示词]
-    artifacts_md --> catalog_user[prompts/user_prompts 用户提示词]
-    artifacts_md --> docs_repo[documents/* 知识库引用]
-    artifacts_md -.-> new_consumer[其他下游/发布渠道]
+    artifacts_md --> catalog_coding[prompts/coding_prompts]
+    artifacts_md --> catalog_system[prompts/system_prompts]
+    artifacts_md --> catalog_assist[prompts/assistant_prompts]
+    artifacts_md --> catalog_user[prompts/user_prompts]
+    artifacts_md --> docs_repo[documents/*]
+    artifacts_md --> new_consumer[预留：其他下游渠道]
     catalog_coding --> ai_flow[AI 结对编程流程]
     ai_flow --> deliverables[项目上下文 / 计划 / 代码产出]
   end
 
   subgraph ux_layer[用户交互与接口层]
     cli[CLI: python main.py] --> orchestrator
-    makefile[Makefile 任务封装] -.-> cli
-    readme[README.md 使用指南] -.-> cli
+    makefile[Makefile 任务封装] --> cli
+    readme[README.md 使用指南] --> cli
   end
 
   subgraph infra_layer[基础设施与横切能力层]
-    git[Git 版本控制] -.-> orchestrator
-    backups[backups/一键备份.sh · backups/快速备份.py] -.-> artifacts_md
-    deps[requirements.txt · scripts/requirements.txt 依赖] -.-> orchestrator
-    config[prompts-library/scripts/config.yaml 配置] -.-> orchestrator
-    monitor[日志/监控 (外部接入预留)] -.-> orchestrator
-  end
-
-  %% 横切覆盖示意
-  backups -.-> catalog_coding
-  git -.-> validate
-  config -.-> validate
-
-  %% Legend
-  subgraph Legend[Legend]
-    legend_data[实线箭头：主数据流]
-    legend_ctrl[虚线：控制/配置/调度]
-    legend_async[点虚线：外部/异步接口]
+    git[Git 版本控制] --> orchestrator
+    backups[backups/一键备份.sh · backups/快速备份.py] --> artifacts_md
+    deps[requirements.txt · scripts/requirements.txt] --> orchestrator
+    config[prompts-library/scripts/config.yaml] --> orchestrator
+    monitor[预留：日志与监控] --> orchestrator
   end
 ```
 
