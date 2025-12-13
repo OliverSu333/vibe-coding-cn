@@ -10,7 +10,7 @@
 
 <div align="center">
 
-# Vibe Coding 终极指南 V1.2
+# vibe coding 至尊超级终极无敌指南 V114514
 
 **一个通过与 AI 结对编程，将想法变为现实的终极工作流程。**
 
