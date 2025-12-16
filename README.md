@@ -30,6 +30,7 @@
   <!-- 多语言入口 -->
   <a href="./i18n/zh/README.md"><img src="https://img.shields.io/badge/lang-zh-red?style=for-the-badge" alt="简体中文"></a>
   <a href="./i18n/en/README.md"><img src="https://img.shields.io/badge/lang-en-lightgrey?style=for-the-badge" alt="English"></a>
+  <a href="./i18n/he/"><img src="https://img.shields.io/badge/lang-he-navy?style=for-the-badge" alt="Hebrew"></a>
   <a href="./i18n/ar/"><img src="https://img.shields.io/badge/lang-ar-brown?style=for-the-badge" alt="Arabic"></a>
   <a href="./i18n/bn/"><img src="https://img.shields.io/badge/lang-bn-orange?style=for-the-badge" alt="Bengali"></a>
   <a href="./i18n/de/"><img src="https://img.shields.io/badge/lang-de-black?style=for-the-badge" alt="Deutsch"></a>
@@ -37,7 +38,6 @@
   <a href="./i18n/fa/"><img src="https://img.shields.io/badge/lang-fa-purple?style=for-the-badge" alt="Farsi"></a>
   <a href="./i18n/fr/"><img src="https://img.shields.io/badge/lang-fr-blue?style=for-the-badge" alt="Français"></a>
   <a href="./i18n/ha/"><img src="https://img.shields.io/badge/lang-ha-darkgreen?style=for-the-badge" alt="Hausa"></a>
-  <a href="./i18n/he/"><img src="https://img.shields.io/badge/lang-he-navy?style=for-the-badge" alt="Hebrew"></a>
   <a href="./i18n/hi/"><img src="https://img.shields.io/badge/lang-hi-darkorange?style=for-the-badge" alt="Hindi"></a>
   <a href="./i18n/id/"><img src="https://img.shields.io/badge/lang-id-teal?style=for-the-badge" alt="Bahasa Indonesia"></a>
   <a href="./i18n/it/"><img src="https://img.shields.io/badge/lang-it-green?style=for-the-badge" alt="Italiano"></a>
