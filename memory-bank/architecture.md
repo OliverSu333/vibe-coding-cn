@@ -166,6 +166,17 @@
 - 测试覆盖全面，包括正常情况、边界值、异常情况和类型验证
 - 模块导出清晰，通过 __init__.py 统一管理公共接口
 
+### 步骤 4 完成后的洞察
+- OptionParams 采用继承层次结构，基类定义通用属性，子类扩展特定属性，符合开闭原则
+- 使用抽象基类（ABC）作为基类，虽然当前未定义抽象方法，但为未来扩展预留接口
+- 参数验证逻辑复用：基类的 _validate_positive 方法被子类复用，减少代码重复
+- BarrierParams 设计考虑了实际金融需求：支持 knock-out/in、barrier level、monitoring frequency 等完整属性
+- 向后兼容性设计：BarrierParams 保留 barrier_price 和 barrier_type 作为别名，确保旧代码仍可使用
+- 监控频率的灵活设计：支持连续监控（'continuous'）和离散监控（正整数），满足不同定价方法的需求
+- 类型转换策略：自动将 int 转换为 float（数值参数），将 float 转换为 int（整数参数），提高易用性
+- 测试覆盖全面：54 个测试用例覆盖所有参数类、所有属性、边界值和异常情况
+- 命名规范统一：使用清晰的英文命名（barrier_level、barrier_direction、knock_type），符合金融术语习惯
+
 ---
 
 ## 文件职责说明
@@ -210,4 +221,29 @@
 - `tests/test_market_data.py`: MarketData 类的单元测试
   - 测试覆盖：参数验证、默认值处理、类型转换、对象相等性、边界值
   - 测试用例数：12 个
+  - 测试状态：全部通过
+
+### 步骤 4 完成后的文件
+
+#### 期权参数模块（src/options/）
+- `src/options/option_params.py`: 期权参数类的实现，提供所有期权类型的参数封装
+  - 职责：封装不同期权类型的特定参数，提供统一的参数验证和访问接口
+  - 功能：
+    - OptionParams 基类：定义通用参数（执行价格、到期时间、期权类型）和验证逻辑
+    - VanillaParams：标准期权参数（无额外属性）
+    - DigitalParams：二元期权参数（无额外属性）
+    - BarrierParams：障碍期权参数，包含 barrier_level、barrier_direction、knock_type、monitoring_frequency
+    - AsianParams：亚式期权参数，包含 averaging_type、monitoring_points
+  - 设计：
+    - 继承层次结构，基类定义通用属性，子类扩展特定属性
+    - 参数验证在构造函数中完成，遵循"快速失败"原则
+    - 使用私有方法（_validate_*）封装验证逻辑，提高代码可维护性
+    - 类型自动转换（int 转 float，float 转 int），提高接口易用性
+    - BarrierParams 保持向后兼容性（barrier_price 和 barrier_type 作为别名）
+- `src/options/__init__.py`: 期权类型模块的包初始化文件，导出所有参数类
+
+#### 测试目录（tests/）
+- `tests/test_option_params.py`: 期权参数类的单元测试
+  - 测试覆盖：所有参数类的创建、参数验证、类型转换、对象相等性、边界值、异常情况
+  - 测试用例数：54 个
   - 测试状态：全部通过
