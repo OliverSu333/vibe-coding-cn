@@ -120,7 +120,7 @@
 
 ### Step 3：输出结果（Final Output）
 
-以完整、结构化、Markdown 形式输出 文档
+以完整、结构化、Markdown 形式输出 文档，写入到/memory_bank/project_context.md
 
 ---
 
